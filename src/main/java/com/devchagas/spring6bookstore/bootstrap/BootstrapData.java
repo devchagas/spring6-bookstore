@@ -51,11 +51,11 @@ public class BootstrapData implements CommandLineRunner {
         abril.setZip(14307038);
 
         Publisher rcBooks = new Publisher();
-        abril.setPublisherName("Rio Claro Books");
-        abril.setAddress("Avenida 42A, 1040, Vila Alema");
-        abril.setCity("Rio Claro");
-        abril.setState("SP");
-        abril.setZip(13506621);
+        rcBooks.setPublisherName("Rio Claro Books");
+        rcBooks.setAddress("Avenida 42A, 1040, Vila Alema");
+        rcBooks.setCity("Rio Claro");
+        rcBooks.setState("SP");
+        rcBooks.setZip(13506621);
 
         //Saves
         Author ericSaved = authorRepository.save(eric);
@@ -70,6 +70,8 @@ public class BootstrapData implements CommandLineRunner {
         //Relationships and new saves
         ericSaved.getBooks().add(dddSaved);
         rodSaved.getBooks().add(noEJBSaved);
+        dddSaved.getAuthors().add(ericSaved);
+        noEJBSaved.getAuthors().add(rodSaved);
 
         dddSaved.setPublisher(abrilSaved);
         noEJBSaved.setPublisher(rcBooksSaved);
