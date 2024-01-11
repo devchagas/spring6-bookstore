@@ -13,12 +13,37 @@ public class Book {
     private String title;
     private String isbn;
 
+    private double price;
+
     @ManyToMany
     @JoinTable(name = "author_book", joinColumns = @JoinColumn(name = "book_id"), inverseJoinColumns = @JoinColumn(name = "author_id"))
     private Set<Author> authors = new HashSet<>();
 
     @ManyToOne
     private Publisher publisher;
+
+    @ManyToOne
+    private Customer soldTo;
+
+    @Override
+    public String toString() {
+        return "Book{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", isbn='" + isbn + '\'' +
+                ", price=" + price +
+                ", authors=" + authors +
+                ", publisher=" + publisher +
+                '}';
+    }
+
+    public double getPrice() {
+        return price;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
+    }
 
     public Publisher getPublisher() {
         return publisher;
@@ -58,17 +83,6 @@ public class Book {
 
     public void setIsbn(String isbn) {
         this.isbn = isbn;
-    }
-
-    @Override
-    public String toString() {
-        return "Book{" +
-                "id=" + id +
-                ", title='" + title + '\'' +
-                ", isbn='" + isbn + '\'' +
-                ", authors=" + authors +
-                ", publisher=" + publisher +
-                '}';
     }
 
     @Override

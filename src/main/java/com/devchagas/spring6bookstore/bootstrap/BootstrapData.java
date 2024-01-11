@@ -37,10 +37,12 @@ public class BootstrapData implements CommandLineRunner {
         Book ddd = new Book();
         ddd.setTitle("Domain Driven Design");
         ddd.setIsbn("123456");
+        ddd.setPrice(19.99);
 
         Book noEJB = new Book();
         noEJB.setTitle("J2EE Development without EJB");
         noEJB.setIsbn("654321");
+        noEJB.setPrice(49.99);
 
         //Publishers
         Publisher abril = new Publisher();
@@ -67,7 +69,7 @@ public class BootstrapData implements CommandLineRunner {
         Publisher abrilSaved = publiserRepository.save(abril);
         Publisher rcBooksSaved = publiserRepository.save(rcBooks);
 
-        //Relationships and new saves
+        //Relationships between Author and Book and new saves
         ericSaved.getBooks().add(dddSaved);
         rodSaved.getBooks().add(noEJBSaved);
         dddSaved.getAuthors().add(ericSaved);

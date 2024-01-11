@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Spring 6 Bookstore Web App</title>
+</head>
+<body>
+<h1>Publishers List</h1>
+
+<table>
+    <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Address</th>
+        <th>City</th>
+        <th>State</th>
+        <th>ZIP</th>
+    </tr>
+    <tr th:each="publisher : ${publishers}">
+        <td th:text="${publisher.id}">123</td>
+        <td th:text="${publisher.publisherName}"> Spring in Action</td>
+        <td th:text="${publisher.address}">123 St.</td>
+        <td th:text="${publisher.city}">Rio Claro</td>
+        <td th:text="${publisher.state}">SP</td>
+        <td th:text="${publisher.zip}">13506621</td>
+    </tr>
+</table>
+
+</body>
+</html>
