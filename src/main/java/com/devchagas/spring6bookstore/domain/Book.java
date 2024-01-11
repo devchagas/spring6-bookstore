@@ -22,8 +22,9 @@ public class Book {
     @ManyToOne
     private Publisher publisher;
 
-    @ManyToOne
-    private Customer soldTo;
+    @ManyToMany
+    @JoinTable(name = "customer_book", joinColumns = @JoinColumn(name = "book_id"), inverseJoinColumns = @JoinColumn(name = "customer_id"))
+    private Set<Customer> customersSold = new HashSet<>();
 
     @Override
     public String toString() {
@@ -34,7 +35,16 @@ public class Book {
                 ", price=" + price +
                 ", authors=" + authors +
                 ", publisher=" + publisher +
+                ", customersSold=" + customersSold +
                 '}';
+    }
+
+    public Set<Customer> getCustomersSold() {
+        return customersSold;
+    }
+
+    public void setCustomersSold(Set<Customer> customersSold) {
+        this.customersSold = customersSold;
     }
 
     public double getPrice() {

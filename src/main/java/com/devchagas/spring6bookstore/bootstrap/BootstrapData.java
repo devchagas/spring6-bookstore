@@ -2,9 +2,11 @@ package com.devchagas.spring6bookstore.bootstrap;
 
 import com.devchagas.spring6bookstore.domain.Author;
 import com.devchagas.spring6bookstore.domain.Book;
+import com.devchagas.spring6bookstore.domain.Customer;
 import com.devchagas.spring6bookstore.domain.Publisher;
 import com.devchagas.spring6bookstore.repositories.AuthorRepository;
 import com.devchagas.spring6bookstore.repositories.BookRepository;
+import com.devchagas.spring6bookstore.repositories.CustomerRepository;
 import com.devchagas.spring6bookstore.repositories.PubliserRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
@@ -16,10 +18,13 @@ public class BootstrapData implements CommandLineRunner {
     private final BookRepository bookRepository;
     private final PubliserRepository publiserRepository;
 
-    public BootstrapData(AuthorRepository authorRepository, BookRepository bookRepository, PubliserRepository publiserRepository) {
+    private final CustomerRepository customerRepository;
+
+    public BootstrapData(AuthorRepository authorRepository, BookRepository bookRepository, PubliserRepository publiserRepository, CustomerRepository customerRepository) {
         this.authorRepository = authorRepository;
         this.bookRepository = bookRepository;
         this.publiserRepository = publiserRepository;
+        this.customerRepository = customerRepository;
     }
 
     @Override
@@ -59,6 +64,22 @@ public class BootstrapData implements CommandLineRunner {
         rcBooks.setState("SP");
         rcBooks.setZip(13506621);
 
+        //Customers
+        Customer gabriel = new Customer();
+        gabriel.setCustomerName("Gabriel Chagas");
+        gabriel.setAge(23);
+        gabriel.setAreaOfInterest("SciFi/Cyberpunk");
+
+        Customer mariana = new Customer();
+        mariana.setCustomerName("Mariana Pazianoto");
+        mariana.setAge(23);
+        mariana.setAreaOfInterest("Drama/Investigation");
+
+        Customer john = new Customer();
+        john.setCustomerName("John Thompson");
+        john.setAge(45);
+        john.setAreaOfInterest("Technology/Software Engineering");
+
         //Saves
         Author ericSaved = authorRepository.save(eric);
         Author rodSaved = authorRepository.save(rod);
@@ -69,9 +90,14 @@ public class BootstrapData implements CommandLineRunner {
         Publisher abrilSaved = publiserRepository.save(abril);
         Publisher rcBooksSaved = publiserRepository.save(rcBooks);
 
-        //Relationships between Author and Book and new saves
+        Customer gabrielSaved = customerRepository.save(gabriel);
+        Customer marianaSaved = customerRepository.save(mariana);
+        Customer johnSaved = customerRepository.save(john);
+
+        //Relationships between Author and Book and Books and Publishers
         ericSaved.getBooks().add(dddSaved);
         rodSaved.getBooks().add(noEJBSaved);
+
         dddSaved.getAuthors().add(ericSaved);
         noEJBSaved.getAuthors().add(rodSaved);
 
@@ -84,10 +110,26 @@ public class BootstrapData implements CommandLineRunner {
         bookRepository.save(dddSaved);
         bookRepository.save(noEJBSaved);
 
+        /*
+        //Relationships between Customers and Books and new saves
+        gabrielSaved.getBooksPurchased().add(dddSaved);
+        marianaSaved.getBooksPurchased().add(noEJBSaved);
+
+        dddSaved.getCustomersSold().add(gabrielSaved);
+        noEJBSaved.getCustomersSold().add(marianaSaved);
+
+        customerRepository.save(gabrielSaved);
+        customerRepository.save(marianaSaved);
+
+        bookRepository.save(dddSaved);
+        bookRepository.save(noEJBSaved);
+        */
+
         //Prints
         System.out.println("In Bootstrap");
         System.out.println("Author Count: " + authorRepository.count());
         System.out.println("Book Count: " + bookRepository.count());
         System.out.println("Publisher Count: " + publiserRepository.count());
+        System.out.println("Customer Count: " + customerRepository.count());
     }
 }

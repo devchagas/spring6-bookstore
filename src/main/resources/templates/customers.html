@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Spring 6 Bookstore Web App</title>
+</head>
+<body>
+<h1>Customers List</h1>
+
+<table>
+    <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Age</th>
+        <th>Area of Interest</th>
+    </tr>
+    <tr th:each="customer : ${customers}">
+        <td th:text="${customer.id}">123</td>
+        <td th:text="${customer.customerName}"> John Thompson</td>
+        <td th:text="${customer.age}">43</td>
+        <td th:text="${customer.areaOfInterest}">SciFi</td>
+    </tr>
+</table>
+
+</body>
+</html>
